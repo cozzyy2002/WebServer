@@ -4,15 +4,15 @@ require 'openssl'
 
 server = WEBrick::HTTPServer.new({
   DocumentRoot: './',
-  Port: 8443,
+  Port: 443,
   SSLEnable: true,
-  SSLCertificate: OpenSSL::X509::Certificate.new(File.open('./ssl/status_server/server.crt').read),
-  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open('./ssl/status_server/server.key').read),
+  SSLCertificate: OpenSSL::X509::Certificate.new(File.open('../ssl/status_server/server.crt').read),
+  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open('../ssl/status_server/server.key').read),
 })
 
-#server.mount_proc '/' do |req, res|
-#  print #{req.host}
-#end
+server.mount_proc '/test' do |req, res|
+  res.body="<HTML><BODY><H2>I am #{req.host}</H2></BODY></HTML>"
+end
 
 Signal.trap(:INT) { server.shutdown }
 server.start

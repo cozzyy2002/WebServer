@@ -6,8 +6,8 @@ server = WEBrick::HTTPServer.new({
   DocumentRoot: './',
   Port: 443,
   SSLEnable: true,
-  SSLCertificate: OpenSSL::X509::Certificate.new(File.open('../ssl/status_server/server.crt').read),
-  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open('../ssl/status_server/server.key').read),
+  SSLCertificate: OpenSSL::X509::Certificate.new(File.open('../ssl/multi.test.com.crt').read),
+  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open('../ssl/multi.test.com.key').read),
 })
 
 server.mount_proc '/test' do |req, res|
